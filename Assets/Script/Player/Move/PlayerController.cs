@@ -1,15 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace TarodevController {
-    /// <summary>
-    /// Hey!
-    /// Tarodev here. I built this controller as there was a severe lack of quality & free 2D controllers out there.
-    /// Right now it only contains movement and jumping, but it should be pretty easy to expand... I may even do it myself
-    /// if there's enough interest. You can play and compete for best times here: https://tarodev.itch.io/
-    /// If you hve any questions or would like to brag about your score, come to discord: https://discord.gg/GqeHHnhHpz
-    /// </summary>
     public class PlayerController : MonoBehaviour, IPlayerController {
         // Public for external hooks
         public Vector3 Velocity { get; private set; }
@@ -36,12 +30,17 @@ namespace TarodevController {
             GatherInput();
             RunCollisionChecks();
 
-            CalculateWalk(); // Horizontal movement
             CalculateJumpApex(); // Affects fall speed, so calculate before gravity
-            CalculateGravity(); // Vertical movement
+            if(!_isDashing)
+                CalculateGravity(); // Vertical movement
+            
             CalculateJump(); // Possibly overrides vertical
 
+            
+            CalculateWalk(); // Horizontal movement
             MoveCharacter(); // Actually perform the axis movement
+            
+            
         }
 
 
@@ -297,5 +296,53 @@ namespace TarodevController {
         }
 
         #endregion
+
+        #region Dash
+
+        [Header("DASH")]
+        [SerializeField] private float _dashingPower = 40f;
+        [SerializeField] private float _dashingTime = 0.2f;
+        [SerializeField] private TrailRenderer _renderer;
+
+
+        public bool CanDash { private set; get; } = true;
+        
+        private bool _isDashing;
+        private float _dashingCoolDown = 1f;
+        
+        public void Dash()
+        {
+            if (CanDash)
+            {
+                StartCoroutine(Dashing());
+            }
+        }
+
+        private IEnumerator Dashing()
+        {
+            float TempClamp = _moveClamp;
+            CanDash = false;
+            _isDashing = true;
+            _moveClamp += 50f;
+            
+            if(Input.X !=0)
+                _currentHorizontalSpeed += Input.X * _dashingPower;
+            else
+            {
+                _currentHorizontalSpeed += _dashingPower;
+            }
+
+            _renderer.emitting = true;
+            yield return new WaitForSeconds(_dashingTime);
+            _renderer.emitting = false;
+            _moveClamp = TempClamp;
+            _isDashing = false;
+            yield return new WaitForSeconds(_dashingCoolDown);
+            CanDash = true;
+        }
+
+
+        #endregion
+       
     }
 }
