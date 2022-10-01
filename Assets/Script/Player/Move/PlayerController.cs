@@ -6,6 +6,7 @@ using UnityEngine;
 namespace TarodevController {
     public class PlayerController : MonoBehaviour, IPlayerController {
         // Public for external hooks
+
         public Vector3 Velocity { get; private set; }
         public FrameInput Input { get; private set; }
         public bool JumpingThisFrame { get; private set; }
@@ -303,6 +304,7 @@ namespace TarodevController {
         [SerializeField] private float _dashingPower = 40f;
         [SerializeField] private float _dashingTime = 0.2f;
         [SerializeField] private TrailRenderer _renderer;
+        [SerializeField] private BoxCollider2D _collider;
 
 
         public bool CanDash { private set; get; } = true;
@@ -324,6 +326,7 @@ namespace TarodevController {
             CanDash = false;
             _isDashing = true;
             _moveClamp += 50f;
+            _collider.enabled = false;
             
             if(Input.X !=0)
                 _currentHorizontalSpeed += Input.X * _dashingPower;
@@ -334,9 +337,14 @@ namespace TarodevController {
 
             _renderer.emitting = true;
             yield return new WaitForSeconds(_dashingTime);
-            _renderer.emitting = false;
+            
             _moveClamp = TempClamp;
             _isDashing = false;
+
+            yield return new WaitForSeconds(0.3f);
+            _renderer.emitting = false;
+            _collider.enabled = true;
+            
             yield return new WaitForSeconds(_dashingCoolDown);
             CanDash = true;
         }

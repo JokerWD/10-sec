@@ -4,6 +4,6 @@ namespace TenSeconds
 {
     public class Player : MonoBehaviour
     {
-        private int _health = 1;
+        public int _health { get; private set; } = 1;
     }
 }
