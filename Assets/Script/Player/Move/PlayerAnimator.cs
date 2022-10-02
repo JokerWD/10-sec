@@ -29,6 +29,13 @@ namespace TarodevController {
         void Update() {
             if (_player == null) return;
 
+            if (_player.Input.X != 0) {
+                _anim.SetFloat(SpeedKey, Mathf.Abs(_player.RawMovement.x));
+            }
+            else{
+                _anim.SetFloat(SpeedKey, 0);
+            }
+
             // Flip the sprite
             if (_player.Input.X != 0) transform.localScale = new Vector3(_player.Input.X > 0 ? 1 : -1, 1, 1);
 
@@ -100,6 +107,7 @@ namespace TarodevController {
         private static readonly int GroundedKey = Animator.StringToHash("Grounded");
         private static readonly int IdleSpeedKey = Animator.StringToHash("IdleSpeed");
         private static readonly int JumpKey = Animator.StringToHash("Jump");
+        private static readonly int SpeedKey = Animator.StringToHash("Speed");
 
         #endregion
     }
