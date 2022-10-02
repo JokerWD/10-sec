@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace TenSeconds
@@ -10,6 +9,10 @@ namespace TenSeconds
         
         public bool PlayerDead { get; private set; }
 
+        private GameObject _thisGameObject;
+
+        private void Awake() => _thisGameObject = gameObject;
+
         public void TakeDamage(int amount)
         {
             _health -= amount;
@@ -17,6 +20,8 @@ namespace TenSeconds
             {
                 if (_isPlayer)
                     PlayerDead = true;
+                
+                _thisGameObject.SetActive(false);
             }
 
         }

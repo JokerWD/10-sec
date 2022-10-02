@@ -79,6 +79,7 @@ namespace TarodevController {
             }
 
             _movement = _player.RawMovement; // Previous frame movement is more valuable
+            
         }
 
         private void OnDisable() {
