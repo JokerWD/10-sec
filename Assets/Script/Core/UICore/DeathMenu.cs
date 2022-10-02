@@ -23,8 +23,12 @@ namespace TenCore
             _homeButton.onClick.RemoveListener(GoHome);
             _restartButton.onClick.RemoveListener(RestartGame);
         }
+
+        private void Update() => Time.timeScale = _canvas.activeSelf ? 0f : 1f;
+
         private void GoHome() => SceneManager.LoadScene(0);
 
+        
         private void RestartGame()
         {
             _canvas.SetActive(false);

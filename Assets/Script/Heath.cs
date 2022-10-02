@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace TenSeconds
@@ -7,7 +8,7 @@ namespace TenSeconds
         [SerializeField] private int _health;
         [SerializeField] private bool _isPlayer;
         
-        public bool _isPlayerDead { get; private set; }
+        public bool PlayerDead { get; private set; }
 
         public void TakeDamage(int amount)
         {
@@ -15,7 +16,7 @@ namespace TenSeconds
             if (_health <= 0)
             {
                 if (_isPlayer)
-                    _isPlayerDead = true;
+                    PlayerDead = true;
             }
 
         }
