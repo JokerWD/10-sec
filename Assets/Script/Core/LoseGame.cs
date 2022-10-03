@@ -1,3 +1,4 @@
+using Dythervin.AutoAttach;
 using UnityEngine;
 using Zenject;
 
@@ -5,22 +6,27 @@ namespace TenSeconds
 {
     public class LoseGame : MonoBehaviour
     {
-        [SerializeField] private GameObject _deathUI;
-        [SerializeField] private Heath _playerHeath;
+        [SerializeField, Attach(Attach.Scene)] private GameObject _deathUI;
+        private HealthPlayer _playerHealth;
 
         private Timer _timer;
 
         #region Zenject
 
         [Inject]
-        private void Construct(Timer time) => _timer = time;
+        private void Construct(Timer time, HealthPlayer healthPlayer)
+        {
+            _timer = time;
+            _playerHealth = healthPlayer;
+        } 
+            
 
 
         #endregion
         
         private void Update()
         {
-            if(_playerHeath.PlayerDead)
+            if(_playerHealth.PlayerDead)
                 SetDeathUI();
             if(_timer.TimeValue < 0)
                 SetDeathUI();

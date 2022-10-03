@@ -9,9 +9,12 @@ namespace TenCore
     public class SceneInstaller : MonoInstaller
     {
         [SerializeField, Attach(Attach.Scene)] private Timer _timer;
+        
+        [Header("PLAYER")]
         [SerializeField, Attach(Attach.Scene)] private PlayerController _playerController;
         [SerializeField, Attach(Attach.Scene)] private MeleeWeapon _meleeWeapon;
         [SerializeField, Attach(Attach.Scene)] private Player _player;
+        [SerializeField, Attach(Attach.Scene)] private HealthPlayer _healthPlayer;
         
         public override void InstallBindings()
         {
@@ -19,6 +22,7 @@ namespace TenCore
             Container.Bind<MeleeWeapon>().FromInstance(_meleeWeapon).AsSingle();
             Container.Bind<Player>().FromInstance(_player).AsSingle();
             Container.Bind<Timer>().FromInstance(_timer).AsSingle();
+            Container.Bind<HealthPlayer>().FromInstance(_healthPlayer).AsSingle();
         }
     }
 }
