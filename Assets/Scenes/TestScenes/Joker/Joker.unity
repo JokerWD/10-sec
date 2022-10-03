@@ -900,6 +900,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a54459dcd5a18b0468dfd55cfae7ea6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timeText: {fileID: 1474437607}
+--- !u!114 &1474437607 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3363219729189653068, guid: 2a5ce3a893fd42c4eabf367004e17177, type: 3}
+  m_PrefabInstance: {fileID: 729177642}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1565929964 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5964860562151097417, guid: 2a5ce3a893fd42c4eabf367004e17177, type: 3}
@@ -950,6 +962,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1248199877}
     m_Modifications:
+    - target: {fileID: 2110441474515136240, guid: 0f10fd0a48fc1d64fa2d285ad165da1d, type: 3}
+      propertyPath: _timer
+      value: 
+      objectReference: {fileID: 1395869245}
     - target: {fileID: 2110441474515136240, guid: 0f10fd0a48fc1d64fa2d285ad165da1d, type: 3}
       propertyPath: _player
       value: 

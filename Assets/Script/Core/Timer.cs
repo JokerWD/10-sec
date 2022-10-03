@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Dythervin.AutoAttach;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,17 +6,19 @@ namespace TenSeconds
 {
     public class Timer : MonoBehaviour
     {
-        [SerializeField] private Text _timeText;
-        private float _timeValue = 10f;
+        [SerializeField, Attach(Attach.Scene)] private Text _timeText;
+        public float TimeValue { get; private set; } = 10f;
+
+        private float seconds;
 
         private void Update()
         {
-            if (_timeValue > 0)
-                _timeValue -= Time.deltaTime;
+            if (TimeValue > 0)
+                TimeValue -= Time.deltaTime;
             else
-                _timeValue = 0;
+                TimeValue = 0;
             
-            DisplayTime(_timeValue);
+            DisplayTime(TimeValue);
         }
 
         private void DisplayTime(float timeToDisplay)
@@ -26,8 +26,8 @@ namespace TenSeconds
             if (timeToDisplay < 0)
                 timeToDisplay = 0;
 
-            float seconds = Mathf.FloorToInt(timeToDisplay % 60);
-            _timeText.text = string.Format("{0}", seconds);
+            seconds = Mathf.FloorToInt(timeToDisplay % 60);
+            _timeText.text = $"{seconds}";
         }
     }
 }
