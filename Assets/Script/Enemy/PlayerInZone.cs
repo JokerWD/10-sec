@@ -34,6 +34,10 @@ namespace TenSeconds
                 CheckPlayer();
                 PlayerInZoneRange = true;
             }
+            else
+            {
+                PlayerInZoneRange = false;
+            }
             
         }
 

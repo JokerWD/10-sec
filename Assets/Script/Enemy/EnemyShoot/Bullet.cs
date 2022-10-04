@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using Zenject;
+using UnityEngine.Pool;
 
 namespace TenSeconds
 {
@@ -9,10 +9,11 @@ namespace TenSeconds
         [SerializeField] private Rigidbody2D _bulletRigidbody2D;
         [SerializeField] private float _speed;
         [SerializeField] private int _timeToDeath;
+        public Vector2 MoveDirection { private get; set; }
         
-        private Player _player;
-        private Transform _bullet;
-        
+
+        private IObjectPool<Bullet> _bulletPool;
+
         #region Zenject
 
        // [Inject]
@@ -21,30 +22,47 @@ namespace TenSeconds
 
         #endregion
 
-        private void Awake() => _bullet = transform;
-
+        #region Direction
+        
         private void Start()
         {
-            _player = FindObjectOfType<Player>();
-            Vector2 MoveDirection = (_player.transform.position - _bullet.position).normalized * _speed;
-            _bulletRigidbody2D.velocity = new Vector2(MoveDirection.x, MoveDirection.y);
+            SetDirection();
             StartCoroutine(Death());
         }
 
+        private void OnEnable()
+        {
+            SetDirection();
+            StartCoroutine(Death());
+        }
+
+        private void OnDisable() => StopCoroutine(Death());
+        
+        #endregion
+
+
+        public void SetPool(IObjectPool<Bullet> bulletPool) => _bulletPool = bulletPool;
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (col.TryGetComponent(out ITakeDamage hit))
             {
                 hit.TakeDamage(3);
+                _bulletPool.Release(this);
             }
-            Destroy(_bullet.gameObject);
         }
+
+
+        private void SetDirection()
+        {
+            MoveDirection *= _speed;
+            _bulletRigidbody2D.velocity = new Vector2(MoveDirection.x, MoveDirection.y);
+        } 
+
 
         private IEnumerator Death()
         {
             yield return new WaitForSeconds(_timeToDeath);
-            Destroy(_bullet.gameObject);
-
+            _bulletPool.Release(this);
         }
         
     }
