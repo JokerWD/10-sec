@@ -1,5 +1,4 @@
 using UnityEngine;
-using Zenject;
 
 namespace TenSeconds
 {
@@ -8,45 +7,32 @@ namespace TenSeconds
         public bool PlayerInZoneRange { get; private set; }
         public float Range { private get; set; }
         
-        private Player _player;
-        private Transform _playerTransform;
+        
         private Transform _enemyTransform;
         private float _distanceToPlayer;
-
-
-        #region Zenject
-
-        [Inject]
-        private void Construct(Player player) => _player = player;
         
-        #endregion
-        private void Awake()
-        {
-            _playerTransform = _player.transform;
-            _enemyTransform = transform;
-        }
+        private void Awake() => _enemyTransform = transform;
 
-        private void Update()
+        public void DistanceOnPlayer(Transform player)
         {
-            _distanceToPlayer = Vector2.Distance(_enemyTransform.position, _playerTransform.position);
+            _distanceToPlayer = Vector2.Distance(_enemyTransform.position, player.position);
             if (_distanceToPlayer <= Range)
             {
-                CheckPlayer();
+                CheckPlayer(player);
                 PlayerInZoneRange = true;
             }
             else
             {
                 PlayerInZoneRange = false;
-            }
-            
+            } 
         }
 
-        private void CheckPlayer()
+        private void CheckPlayer(Transform player)
         {
-            if (_playerTransform.position.x > _enemyTransform.position.x && _enemyTransform.localScale.x < 0)
+            if (player.position.x > _enemyTransform.position.x && _enemyTransform.localScale.x < 0)
             {
                 Flip();
-            }else if (_playerTransform.position.x < _enemyTransform.position.x && _enemyTransform.localScale.x > 0) 
+            }else if (player.position.x < _enemyTransform.position.x && _enemyTransform.localScale.x > 0) 
             { 
                 Flip();
             }

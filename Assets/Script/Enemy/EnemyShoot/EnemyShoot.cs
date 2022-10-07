@@ -1,41 +1,30 @@
-using System;
 using Dythervin.AutoAttach;
 using UnityEngine;
-using Zenject;
 
 namespace TenSeconds
 {
     public class EnemyShoot : MonoBehaviour
     {
-        [SerializeField, Attach(Attach.Child)] private Transform _position;
+        [SerializeField, Attach(Attach.Child)] private Transform _fireTransform;
         [SerializeField] private BulletSpawn _bulletSpawn;
         
         public float FireRate { private get; set; }
-        
-        private Player _player;
-        private PlayerInZone _playerInZone;
         private float _nextFireTime;
         
-        #region Zenject
 
-        [Inject]
-        private void Construct(Player player) => _player = player;
         
-        #endregion
 
-        private void Awake() => _playerInZone = GetComponent<PlayerInZone>();
-
-        private void Update()
+        public void TryShoot(bool InZone, Transform player)
         {
-            if (_playerInZone.PlayerInZoneRange)
+            if (InZone)
                 if (_nextFireTime < Time.time)
-                    Shoot();
+                    Shoot(player);
         }
 
-        private void Shoot()
+        private void Shoot(Transform player)
         {
-            Vector2 MoveDirection = (_player.transform.position - _position.position).normalized;
-            _bulletSpawn.SetBullet(_position.position, MoveDirection);
+            Vector2 MoveDirection = (player.position - _fireTransform.position).normalized;
+            _bulletSpawn.SetBullet(_fireTransform.position, MoveDirection);
             
             _nextFireTime = Time.time + FireRate;
         }
