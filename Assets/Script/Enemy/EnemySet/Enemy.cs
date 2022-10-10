@@ -12,7 +12,8 @@ namespace TenSeconds
         private EnemyShoot _enemyShoot;
         private PlayerInZone _playerInZone;
         private bool _playerInZoneRange;
-        
+        private event Action Shoot;
+
         [Header("PLAYER")]
         private Player _player;
         private Transform _playerTransform;
@@ -36,14 +37,43 @@ namespace TenSeconds
         {
             _enemyShoot.FireRate = _data.FireRate;
             _playerInZone.Range = _data.Range;
+            
+            if (_data.EnemyType == EnemyType.Static)
+                Shoot += Fire;
+            else
+                Shoot += FireFly;
         }
 
-        private void Update()
+        #region Event
+
+        private void OnDisable()
+        {
+            Shoot -= Fire;
+            Shoot -= FireFly;
+        }
+
+        private void OnEnable()
+        {
+            if (_data.EnemyType == EnemyType.Static)
+                Shoot += Fire;
+            else
+                Shoot += FireFly;
+        }
+        
+
+        #endregion
+        
+
+        private void Update() => Shoot?.Invoke();
+
+        private void Fire()
         {
             _playerInZoneRange = _playerInZone.PlayerInZoneRange;
             
             _playerInZone.DistanceOnPlayer(_playerTransform);
             _enemyShoot.TryShoot(_playerInZoneRange, _playerTransform);
         }
+
+        private void FireFly() => _enemyShoot.TryShoot();
     }
 }
