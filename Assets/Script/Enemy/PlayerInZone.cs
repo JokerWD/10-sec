@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TenSeconds
+namespace TenEnemy
 {
     public class PlayerInZone : MonoBehaviour
     {

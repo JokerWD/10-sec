@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TenSeconds
+namespace TenEnemy
 {
     public class EnemyFlyMove : MonoBehaviour
     {

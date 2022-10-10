@@ -1,8 +1,9 @@
 using System;
 using UnityEngine;
 using Zenject;
+using TenSeconds;
 
-namespace TenSeconds
+namespace TenEnemy
 {
     [RequireComponent(typeof(EnemyShoot), typeof(PlayerInZone))]
     public class Enemy : MonoBehaviour

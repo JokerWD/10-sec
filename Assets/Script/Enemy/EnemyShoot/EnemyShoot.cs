@@ -1,7 +1,7 @@
 using Dythervin.AutoAttach;
 using UnityEngine;
 
-namespace TenSeconds
+namespace TenEnemy
 {
     public  class EnemyShoot : MonoBehaviour
     {

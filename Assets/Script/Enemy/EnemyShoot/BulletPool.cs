@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace TenSeconds
+namespace TenEnemy
 {
     public class BulletPool : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace TenSeconds
+namespace TenEnemy
 {
     public class BulletSpawn : MonoBehaviour
     {

@@ -1,8 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
+using TenSeconds;
 
-namespace TenSeconds
+namespace TenEnemy
 {
     public class Bullet : MonoBehaviour
     {
@@ -13,14 +14,6 @@ namespace TenSeconds
         
 
         private IObjectPool<Bullet> _bulletPool;
-
-        #region Zenject
-
-       // [Inject]
-      //  private void Construct(Player player) => _player = player;
-
-
-        #endregion
 
         #region Direction
         

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Animations;
 using UnityEngine;
 
-namespace TenSeconds
+namespace TenEnemy
 {
     [CreateAssetMenu(fileName = "Enemy", menuName = "Gameplay/Enemy")]
     public class EnemyData : ScriptableObject

@@ -1,4 +1,4 @@
-namespace TenSeconds
+namespace TenEnemy
 {
     public enum EnemyType 
     {
