@@ -8,11 +8,12 @@ namespace TenSeconds
     public class Enemy : MonoBehaviour
     {
         [SerializeField] private EnemyData _data;
-
+        
+        private EnemyFlyMove _enemyFlyMove;
         private EnemyShoot _enemyShoot;
         private PlayerInZone _playerInZone;
         private bool _playerInZoneRange;
-        private event Action Shoot;
+        private event Action OnAction;
 
         [Header("PLAYER")]
         private Player _player;
@@ -37,34 +38,47 @@ namespace TenSeconds
         {
             _enemyShoot.FireRate = _data.FireRate;
             _playerInZone.Range = _data.Range;
-            
+
             if (_data.EnemyType == EnemyType.Static)
-                Shoot += Fire;
+            {
+                OnAction += Fire;
+            }
             else
-                Shoot += FireFly;
+            {
+                _enemyFlyMove = GetComponent<EnemyFlyMove>();
+                OnAction += FireFly;
+                OnAction += Move;
+
+            }
         }
 
         #region Event
 
         private void OnDisable()
         {
-            Shoot -= Fire;
-            Shoot -= FireFly;
+            OnAction -= Fire;
+            OnAction -= FireFly;
         }
 
         private void OnEnable()
         {
             if (_data.EnemyType == EnemyType.Static)
-                Shoot += Fire;
+            {
+                OnAction += Fire;
+            }
             else
-                Shoot += FireFly;
+            {
+                OnAction += FireFly;
+                OnAction += Move;
+
+            }
         }
         
 
         #endregion
         
 
-        private void Update() => Shoot?.Invoke();
+        private void Update() => OnAction?.Invoke();
 
         private void Fire()
         {
@@ -75,5 +89,7 @@ namespace TenSeconds
         }
 
         private void FireFly() => _enemyShoot.TryShoot();
+
+        private void Move() => _enemyFlyMove.Move();
     }
 }

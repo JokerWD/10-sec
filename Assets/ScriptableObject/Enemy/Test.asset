@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7554dd93f79a9864c93b86fa65e3f2ce, type: 3}
   m_Name: Test
   m_EditorClassIdentifier: 
-  <EnemyType>k__BackingField: 0
+  <EnemyType>k__BackingField: 1
   <FireRate>k__BackingField: 1
   <Range>k__BackingField: 15
   <_animator>k__BackingField: {fileID: 0}
