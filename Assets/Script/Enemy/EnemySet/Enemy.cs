@@ -15,7 +15,7 @@ namespace TenEnemy
         private EnemyShoot _enemyShoot;
         private PlayerInZone _playerInZone;
         private bool _playerInZoneRange;
-        private event Action OnAction;
+        private event Action OnShoot;
 
         [Header("PLAYER")]
         private Player _player;
@@ -43,16 +43,16 @@ namespace TenEnemy
             _playerInZone.Range = _data.Range;
             _sprite.sprite = _data.EnemySprite;
 
+            
             if (_data.EnemyType == EnemyType.Static)
             {
-                OnAction += Fire;
+                OnShoot += Fire;
             }
             else
             {
                 _enemyFlyMove = GetComponent<EnemyFlyMove>();
-                OnAction += FireFly;
-                OnAction += Move;
-
+                OnShoot += FireFly;
+                Move();
             }
         }
 
@@ -60,29 +60,24 @@ namespace TenEnemy
 
         private void OnDisable()
         {
-            OnAction -= Fire;
-            OnAction -= FireFly;
+            OnShoot -= Fire;
+            OnShoot -= FireFly;
         }
 
         private void OnEnable()
         {
             if (_data.EnemyType == EnemyType.Static)
-            {
-                OnAction += Fire;
-            }
+            
+                OnShoot += Fire;
             else
-            {
-                OnAction += FireFly;
-                OnAction += Move;
-
-            }
+                OnShoot += FireFly;
         }
         
 
         #endregion
         
 
-        private void Update() => OnAction?.Invoke();
+        private void Update() => OnShoot?.Invoke();
 
         private void Fire()
         {
