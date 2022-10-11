@@ -11,6 +11,7 @@ namespace TenEnemy
         [SerializeField] private EnemyData _data;
         
         private EnemyFlyMove _enemyFlyMove;
+        private SpriteRenderer _sprite;
         private EnemyShoot _enemyShoot;
         private PlayerInZone _playerInZone;
         private bool _playerInZoneRange;
@@ -33,12 +34,14 @@ namespace TenEnemy
             _playerTransform = _player.transform;
             _enemyShoot = GetComponent<EnemyShoot>();
             _playerInZone = GetComponent<PlayerInZone>();
+            _sprite = GetComponent<SpriteRenderer>();
         }
 
         private void Start()
         {
             _enemyShoot.FireRate = _data.FireRate;
             _playerInZone.Range = _data.Range;
+            _sprite.sprite = _data.EnemySprite;
 
             if (_data.EnemyType == EnemyType.Static)
             {

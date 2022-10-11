@@ -16,4 +16,4 @@ MonoBehaviour:
   <FireRate>k__BackingField: 1
   <Range>k__BackingField: 15
   <_animator>k__BackingField: {fileID: 0}
-  <_enemySprite>k__BackingField: {fileID: 0}
+  <EnemySprite>k__BackingField: {fileID: 21300000, guid: 9ec0ca269ec0b4f4fa12877c83d9dd88, type: 3}
