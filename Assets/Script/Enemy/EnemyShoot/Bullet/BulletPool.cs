@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Pool;
 
 namespace TenEnemy
@@ -13,21 +13,21 @@ namespace TenEnemy
         {
             var maxBulletsMultiplier = 2;
             
-            PoolBullet = new ObjectPool<Bullet>(OnCreateBullet, OnGetBullet, OnDisableBullet, OnDestroyBullet,
-                                                true, BulletCount * maxBulletsMultiplier);
+            PoolBullet = new ObjectPool<Bullet>(OnCreateArrow, OnGetArrow, OnDisableArrow, OnDestroyArrow,
+                true, BulletCount * maxBulletsMultiplier);
         }
 
-        private void OnDestroyBullet(Bullet bullet) => Destroy(bullet.gameObject);
+        private void OnDestroyArrow(Bullet bullet) => Destroy(bullet.gameObject);
 
-        private void OnGetBullet(Bullet bullet)
+        private void OnGetArrow(Bullet bullet)
         {
             bullet.gameObject.SetActive(true);
             bullet.transform.SetParent(transform, true);
         }
 
-        private void OnDisableBullet(Bullet bullet) => bullet.gameObject.SetActive(false);
+        private void OnDisableArrow(Bullet bullet) => bullet.gameObject.SetActive(false);
 
-        private Bullet OnCreateBullet()
+        private Bullet OnCreateArrow()
         {
             var bullet = Instantiate(BulletPrefab);
             bullet.SetPool(PoolBullet);

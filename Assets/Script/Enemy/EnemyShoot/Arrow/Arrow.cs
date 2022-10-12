@@ -5,16 +5,12 @@ using TenSeconds;
 
 namespace TenEnemy
 {
-    public class Bullet : MonoBehaviour
+    public class Arrow : Shell
     {
-        [SerializeField] private Rigidbody2D _bulletRigidbody2D;
-        [SerializeField] private float _speed;
-        [SerializeField] private int _timeToDeath;
-        public Vector2 MoveDirection { private get; set; }
+        private IObjectPool<Arrow> _arrowPool;
         
-
-        private IObjectPool<Bullet> _bulletPool;
-
+        public void SetPool(IObjectPool<Arrow> arrowPool) => _arrowPool = arrowPool;
+        
         #region Direction
         
         private void Start()
@@ -32,30 +28,21 @@ namespace TenEnemy
         private void OnDisable() => StopCoroutine(Death());
         
         #endregion
-
-
-        public void SetPool(IObjectPool<Bullet> bulletPool) => _bulletPool = bulletPool;
+        
+        
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (col.TryGetComponent(out ITakeDamage hit))
             {
                 hit.TakeDamage(3);
-                _bulletPool.Release(this);
+                _arrowPool.Release(this);
             }
         }
-
-
-        private void SetDirection()
-        {
-            MoveDirection *= _speed;
-            _bulletRigidbody2D.velocity = new Vector2(MoveDirection.x, MoveDirection.y);
-        } 
-
-
+        
         private IEnumerator Death()
         {
-            yield return new WaitForSeconds(_timeToDeath);
-            _bulletPool.Release(this);
+            yield return new WaitForSeconds(timeToDeath); 
+            _arrowPool.Release(this);
         }
         
     }
