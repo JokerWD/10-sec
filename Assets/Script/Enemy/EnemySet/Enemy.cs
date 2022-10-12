@@ -5,16 +5,18 @@ using TenSeconds;
 
 namespace TenEnemy
 {
-    [RequireComponent(typeof(EnemyShoot), typeof(PlayerInZone))]
     public class Enemy : MonoBehaviour
     {
         [SerializeField] private EnemyData _data;
         
+        private EnemyShootStatic _enemyShootStatic;
         private EnemyFlyMove _enemyFlyMove;
-        private EnemyShoot _enemyShoot;
+        private EnemyShootFly _enemyShootFly;
+        
+        private SpriteRenderer _sprite;
         private PlayerInZone _playerInZone;
         private bool _playerInZoneRange;
-        private event Action OnAction;
+        private event Action OnShoot;
 
         [Header("PLAYER")]
         private Player _player;
@@ -31,65 +33,70 @@ namespace TenEnemy
         private void Awake()
         {
             _playerTransform = _player.transform;
-            _enemyShoot = GetComponent<EnemyShoot>();
-            _playerInZone = GetComponent<PlayerInZone>();
+            _sprite = GetComponent<SpriteRenderer>();
         }
 
         private void Start()
         {
-            _enemyShoot.FireRate = _data.FireRate;
-            _playerInZone.Range = _data.Range;
-
-            if (_data.EnemyType == EnemyType.Static)
-            {
-                OnAction += Fire;
-            }
-            else
-            {
-                _enemyFlyMove = GetComponent<EnemyFlyMove>();
-                OnAction += FireFly;
-                OnAction += Move;
-
-            }
+            _sprite.sprite = _data.EnemySprite;
+            CheckStateEnemy();
+           
         }
 
+        
         #region Event
 
         private void OnDisable()
         {
-            OnAction -= Fire;
-            OnAction -= FireFly;
+            OnShoot -= Fire;
+            OnShoot -= FireFly;
         }
 
         private void OnEnable()
         {
             if (_data.EnemyType == EnemyType.Static)
-            {
-                OnAction += Fire;
-            }
+                OnShoot += Fire;
             else
-            {
-                OnAction += FireFly;
-                OnAction += Move;
-
-            }
+                OnShoot += FireFly;
         }
         
 
         #endregion
         
 
-        private void Update() => OnAction?.Invoke();
+        private void Update() => OnShoot?.Invoke();
+        
+        private void CheckStateEnemy()
+        {
+            if (_data.EnemyType == EnemyType.Static)
+            {
+                _enemyShootStatic = GetComponent<EnemyShootStatic>();
+                _playerInZone = GetComponent<PlayerInZone>();
+                _enemyShootStatic.FireRate = _data.FireRate;
+                _playerInZone.Range = _data.Range;
+                OnShoot += Fire;
+            }
+            else
+            {
+                _enemyFlyMove = GetComponent<EnemyFlyMove>();
+                _enemyShootFly = GetComponent<EnemyShootFly>();
+                _enemyShootFly.FireRate = _data.FireRate;
+                
+                OnShoot += FireFly;
+                Move();
+            }
+        }
+        
 
         private void Fire()
         {
             _playerInZoneRange = _playerInZone.PlayerInZoneRange;
             
             _playerInZone.DistanceOnPlayer(_playerTransform);
-            _enemyShoot.TryShoot(_playerInZoneRange, _playerTransform);
+            _enemyShootStatic.TryShoot(_playerInZoneRange, _playerTransform);
         }
-
-        private void FireFly() => _enemyShoot.TryShoot();
+        
+        private void FireFly() => _enemyShootFly.TryShoot();
 
         private void Move() => _enemyFlyMove.Move();
     }
