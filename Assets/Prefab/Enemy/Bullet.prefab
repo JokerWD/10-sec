@@ -168,6 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f7793d72b1a4ebfa8f8ef06eb0d5ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  date: {fileID: 11400000, guid: 9be85a623533aa34090cc0eedf6df82a, type: 2}
   shellRigidbody2D: {fileID: 2773805982643149215}
-  speed: 3
-  timeToDeath: 6
+  spriteRenderer: {fileID: 2773805981788472722}
