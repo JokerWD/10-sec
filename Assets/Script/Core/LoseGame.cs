@@ -1,8 +1,9 @@
 using Dythervin.AutoAttach;
 using UnityEngine;
 using Zenject;
+using TenSeconds;
 
-namespace TenSeconds
+namespace TenCore
 {
     public class LoseGame : MonoBehaviour
     {

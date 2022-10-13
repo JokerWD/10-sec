@@ -2,7 +2,7 @@ using Dythervin.AutoAttach;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TenSeconds
+namespace TenCore
 {
     public class Timer : MonoBehaviour
     {

@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8620bcf7fa769e94fa548c2fc0325ef4, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.764151, g: 0.3063813, b: 0.3063813, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2773805982643149213}
   - component: {fileID: 2773805982643149214}
   - component: {fileID: 2773805982643149215}
-  - component: {fileID: 2773805982643149216}
+  - component: {fileID: 4736324631081056221}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -150,13 +150,13 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2773805982643149216
+--- !u!114 &4736324631081056221
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,9 +165,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2773805982643149217}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a7a5084be320f147b04caa31a9b3900, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f7793d72b1a4ebfa8f8ef06eb0d5ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletRigidbody2D: {fileID: 2773805982643149215}
-  _speed: 4
-  _timeToDeath: 6
+  date: {fileID: 11400000, guid: 9be85a623533aa34090cc0eedf6df82a, type: 2}
+  shellRigidbody2D: {fileID: 2773805982643149215}
+  spriteRenderer: {fileID: 2773805981788472722}

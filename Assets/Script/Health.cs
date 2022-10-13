@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 namespace TenSeconds
 {
     public abstract class Health : MonoBehaviour, ITakeDamage
