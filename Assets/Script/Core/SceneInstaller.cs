@@ -20,6 +20,10 @@ namespace TenCore
         [Header("SPAWNER")]
         [SerializeField, Attach(Attach.Scene)] private ArrowSpawn _arrowSpawn;
         [SerializeField, Attach(Attach.Scene)] private BulletSpawn _bulletSpawn;
+
+
+        [Header("CORE")] 
+        [SerializeField, Attach(Attach.Scene)] private CheckEnemy _checkEnemy;
         
         public override void InstallBindings()
         {
@@ -30,6 +34,7 @@ namespace TenCore
             Container.Bind<HealthPlayer>().FromInstance(_healthPlayer).AsSingle();
             Container.Bind<ArrowSpawn>().FromInstance(_arrowSpawn).AsSingle();
             Container.Bind<BulletSpawn>().FromInstance(_bulletSpawn).AsSingle();
+            Container.Bind<CheckEnemy>().FromInstance(_checkEnemy).AsSingle();
         }
     }
 }

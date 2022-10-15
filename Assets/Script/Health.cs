@@ -1,11 +1,16 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 namespace TenSeconds
 {
     public abstract class Health : MonoBehaviour, ITakeDamage
     {
-        [SerializeField] private int _health;
+        [SerializeField] private int health;
+        [HideInInspector] public UnityEvent<float> HealthChanged;
+        [HideInInspector] public UnityEvent<bool> IsDied;
+        
         protected bool IsDie;
         private GameObject _thisGameObject;
 
@@ -13,10 +18,13 @@ namespace TenSeconds
 
         public virtual void TakeDamage(int amount)
         {
-            _health -= amount;
-            if (_health <= 0)
+            health -= amount;
+            HealthChanged?.Invoke(health);
+            if (health <= 0)
             {
                 IsDie = true;
+                HealthChanged?.Invoke(0);
+                IsDied?.Invoke(IsDie);
                 _thisGameObject.SetActive(false);
             }
 
