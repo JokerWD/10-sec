@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestScenes/Joker/Joker.unity
     guid: c7cee75c41acf2c4b9e10ae11cef9fa2
+  - enabled: 1
+    path: Assets/Scenes/TestScenes/Deamon/Demon1.unity
+    guid: ddc637311c656c548903914ac40ba9c7
   m_configObjects: {}
