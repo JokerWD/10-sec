@@ -77,3 +77,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb492a9e91912b147927528d5fbbfc93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timer: {fileID: 0}
+  _playerController: {fileID: 0}
+  _meleeWeapon: {fileID: 0}
+  _player: {fileID: 0}
+  _healthPlayer: {fileID: 0}
+  _arrowSpawn: {fileID: 0}
+  _bulletSpawn: {fileID: 0}
+  _checkEnemy: {fileID: 0}
+  _cameraShake: {fileID: 0}

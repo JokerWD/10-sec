@@ -24,6 +24,7 @@ namespace TenCore
 
         [Header("CORE")] 
         [SerializeField, Attach(Attach.Scene)] private CheckEnemy _checkEnemy;
+        [SerializeField, Attach(Attach.Scene)] private CameraShake _cameraShake;
         
         public override void InstallBindings()
         {
@@ -35,6 +36,7 @@ namespace TenCore
             Container.Bind<ArrowSpawn>().FromInstance(_arrowSpawn).AsSingle();
             Container.Bind<BulletSpawn>().FromInstance(_bulletSpawn).AsSingle();
             Container.Bind<CheckEnemy>().FromInstance(_checkEnemy).AsSingle();
+            Container.Bind<CameraShake>().FromInstance(_cameraShake).AsSingle();
         }
     }
 }
