@@ -6,31 +6,31 @@ namespace TenCore
 {
     public class DeathMenu : MonoBehaviour
     {
-        [SerializeField] private GameObject _canvas;
-        [SerializeField] private Button _homeButton;
-        [SerializeField] private Button _soundButton;
-        [SerializeField] private Button _restartButton;
+        [SerializeField] private GameObject canvas;
+        [SerializeField] private Button homeButton;
+        [SerializeField] private Button soundButton;
+        [SerializeField] private Button restartButton;
 
         private void OnEnable()
         {
-            _homeButton.onClick.AddListener(GoHome);
-            _restartButton.onClick.AddListener(RestartGame);
+            homeButton.onClick.AddListener(GoHome);
+            restartButton.onClick.AddListener(RestartGame);
         }
 
         private void OnDisable()
         {
-            _homeButton.onClick.RemoveListener(GoHome);
-            _restartButton.onClick.RemoveListener(RestartGame);
+            homeButton.onClick.RemoveListener(GoHome);
+            restartButton.onClick.RemoveListener(RestartGame);
         }
 
-        private void Update() => Time.timeScale = _canvas.activeSelf ? 0f : 1f;
+        private void Update() => Time.timeScale = canvas.activeSelf ? 0f : 1f;
 
         private void GoHome() => SceneManager.LoadScene(0);
 
         
         private void RestartGame()
         {
-            _canvas.SetActive(false);
+            canvas.SetActive(false);
             SceneManager.LoadScene(1);
         }
     }

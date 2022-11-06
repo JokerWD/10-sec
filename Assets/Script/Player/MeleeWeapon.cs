@@ -5,9 +5,9 @@ namespace TenSeconds
 {
     public class MeleeWeapon : MonoBehaviour
     {
-        [SerializeField] private CapsuleCollider2D _collider2D;
-        [SerializeField] private Animator _animator;
-        [SerializeField] private float _delay = 0.3f;
+        [SerializeField] private CapsuleCollider2D capsuleCollider2D;
+        [SerializeField] private Animator animator;
+        [SerializeField] private float delay = 0.3f;
         private bool _isAttack;
 
 
@@ -28,12 +28,12 @@ namespace TenSeconds
 
         private IEnumerator DelayAttack()
         {
-            _collider2D.enabled = true;
-            _animator.SetBool("IsAttack", true);
-            yield return new WaitForSeconds(_delay);
-            _collider2D.enabled = false;
+            capsuleCollider2D.enabled = true;
+            animator.SetBool("IsAttack", true);
+            yield return new WaitForSeconds(delay);
+            capsuleCollider2D.enabled = false;
             _isAttack = false;
-            _animator.SetBool("IsAttack", false);
+            animator.SetBool("IsAttack", false);
         }
 
     }

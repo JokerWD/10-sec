@@ -1,3 +1,4 @@
+using TenCore;
 using TenSeconds;
 using UnityEngine;
 
@@ -9,10 +10,10 @@ namespace TenEnemy
         
         private void Start()
         {
-            listCheck.Enemies.Add(this);
+            listCheck.enemies.Add(this);
             IsDied.AddListener((IsDie) =>
             {
-                listCheck.Enemies.Remove(this);
+                listCheck.enemies.Remove(this);
             });
         }
 
