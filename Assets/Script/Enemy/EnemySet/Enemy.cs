@@ -7,7 +7,7 @@ namespace TenEnemy
 {
     public class Enemy : MonoBehaviour
     {
-        [SerializeField] private EnemyData _data;
+        [SerializeField] private EnemyData data;
         
         private EnemyShootStatic _enemyShootStatic;
         private EnemyFlyMove _enemyFlyMove;
@@ -38,7 +38,7 @@ namespace TenEnemy
 
         private void Start()
         {
-            _sprite.sprite = _data.EnemySprite;
+            _sprite.sprite = data.EnemySprite;
             CheckStateEnemy();
            
         }
@@ -54,7 +54,7 @@ namespace TenEnemy
 
         private void OnEnable()
         {
-            if (_data.EnemyType == EnemyType.Static)
+            if (data.EnemyType == EnemyType.Static)
                 OnShoot += Fire;
             else
                 OnShoot += FireFly;
@@ -68,19 +68,19 @@ namespace TenEnemy
         
         private void CheckStateEnemy()
         {
-            if (_data.EnemyType == EnemyType.Static)
+            if (data.EnemyType == EnemyType.Static)
             {
                 _enemyShootStatic = GetComponent<EnemyShootStatic>();
                 _playerInZone = GetComponent<PlayerInZone>();
-                _enemyShootStatic.FireRate = _data.FireRate;
-                _playerInZone.Range = _data.Range;
+                _enemyShootStatic.FireRate = data.FireRate;
+                _playerInZone.Range = data.Range;
                 OnShoot += Fire;
             }
             else
             {
                 _enemyFlyMove = GetComponent<EnemyFlyMove>();
                 _enemyShootFly = GetComponent<EnemyShootFly>();
-                _enemyShootFly.FireRate = _data.FireRate;
+                _enemyShootFly.FireRate = data.FireRate;
                 
                 OnShoot += FireFly;
                 Move();

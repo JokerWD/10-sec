@@ -11,7 +11,7 @@ namespace TenEnemy
         [field: SerializeField] public EnemyType EnemyType { get; private set; }
         [field: SerializeField] public float FireRate { get; private set; }
         [field: SerializeField] public float Range { get; private set; }
-        [field: SerializeField] public AnimatorController _animator { get; private set; }
+        [field: SerializeField] public AnimatorController Animator { get; private set; }
         [field: SerializeField] public Sprite EnemySprite { get; private set; }
     }
 }

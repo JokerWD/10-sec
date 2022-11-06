@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TarodevController {
+namespace TenSeconds {
  
     public struct FrameInput {
         public float X,Y;

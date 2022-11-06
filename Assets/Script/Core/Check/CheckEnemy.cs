@@ -4,13 +4,13 @@ using TenEnemy;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace TenSeconds
+namespace TenCore
 {
     public class CheckEnemy : MonoBehaviour
     {
-        [HideInInspector] public UnityEvent<bool> OnEndLevel;
-        public List<HealthEnemy> Enemies;
-        private bool IsEndLevel;
+        [HideInInspector] public UnityEvent<bool> onEndLevel;
+        public List<HealthEnemy> enemies;
+        private bool _isEndLevel;
 
         private void Start()
         {
@@ -20,9 +20,9 @@ namespace TenSeconds
         IEnumerator Check()
         {
             yield return new WaitForSeconds(1f);
-            yield return new WaitUntil(() => Enemies.Count == 0);
-            IsEndLevel = true;
-            OnEndLevel?.Invoke(IsEndLevel);
+            yield return new WaitUntil(() => enemies.Count == 0);
+            _isEndLevel = true;
+            onEndLevel?.Invoke(_isEndLevel);
         }
         
     }

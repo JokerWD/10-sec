@@ -19,7 +19,7 @@ namespace TenCore
 
         private void Start()
         {
-            _checkEnemy.OnEndLevel.AddListener((IsEndLevel) =>
+            _checkEnemy.onEndLevel.AddListener((IsEndLevel) =>
             {
                 NextLevelLoad();
             });
